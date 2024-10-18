@@ -70,10 +70,12 @@ public class TestRailServerConfig extends AbstractDescribableImpl<TestRailServer
 	@Extension
 	public static class DescriptorImpl extends Descriptor<TestRailServerConfig> {
 
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckName(@QueryParameter final String name) {
 			return RailflowUtils.validateRequiredField(name);
 		}
 
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckTestRailUrl(@QueryParameter final String testRailUrl) {
 			final String preparedUrl = Util.fixEmptyAndTrim(testRailUrl);
 			if (preparedUrl == null) {
@@ -87,10 +89,12 @@ public class TestRailServerConfig extends AbstractDescribableImpl<TestRailServer
 			return FormValidation.ok();
 		}
 
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckTestRailUserName(@QueryParameter final String testRailUserName) {
 			return RailflowUtils.validateRequiredField(testRailUserName);
 		}
 
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckTestRailPassword(@QueryParameter final String testRailPassword) {
 			return RailflowUtils.validateRequiredField(testRailPassword);
 		}

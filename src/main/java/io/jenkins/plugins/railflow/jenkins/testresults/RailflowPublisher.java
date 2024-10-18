@@ -356,6 +356,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            the test rail project
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckTestRailProjectName(@QueryParameter final String testRailProjectName) {
 			return RailflowUtils.validateRequiredField(testRailProjectName);
 		}
@@ -369,6 +370,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            report format
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckTestCasePath(@QueryParameter final String testCasePath, @QueryParameter final ReportFormat testReportFormat) {
 			final String testPathTrimmed = Util.fixEmptyAndTrim(testCasePath);
 			if (StringUtils.isEmpty(testPathTrimmed)) {
@@ -392,6 +394,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            the searchMode
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckSearchMode(@QueryParameter final String searchMode) {
 			return RailflowUtils.validateRequiredField(searchMode);
 		}
@@ -403,6 +406,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            result pattern
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckResultFilePattern(@QueryParameter final String resultFilePattern) {
 			return RailflowUtils.validateRequiredField(resultFilePattern);
 		}
@@ -414,6 +418,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            milestonePath
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckMilestonePath(@QueryParameter final String milestonePath) {
 			return RailflowUtils.validateMilestonePath(milestonePath);
 		}
@@ -425,6 +430,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            the JIRA project key.
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckJiraProjectKey(@QueryParameter final String jiraProjectKey) {
 			return RailflowUtils.validateRequiredField(jiraProjectKey);
 		}
@@ -436,6 +442,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		 *            the run id.
 		 * @return the form validation
 		 */
+		@SuppressWarnings({"lgtm[jenkins/csrf]", "lgtm[jenkins/no-permission-check]"})
 		public FormValidation doCheckRunId(@QueryParameter final String runId) {
 			return RailflowUtils.validateRunId(runId);
 		}

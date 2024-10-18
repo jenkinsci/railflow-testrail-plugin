@@ -2,6 +2,7 @@ package io.jenkins.plugins.railflow;
 
 import java.util.Optional;
 
+import hudson.util.Secret;
 import io.jenkins.plugins.railflow.commons.http.ProxySettings;
 
 /**
@@ -14,14 +15,14 @@ public class TestRailParametersImpl implements TestRailParameters {
 
 	private String url;
 	private String username;
-	private String password;
+	private Secret password;
 	private int timeout;
 	private ProxySettings proxySettings;
 
 	public TestRailParametersImpl(final String url, final String username, final String password) {
 		this.url = url;
 		this.username = username;
-		this.password = password;
+		this.password = Secret.fromString(password);
 	}
 
 	@Override
@@ -44,11 +45,11 @@ public class TestRailParametersImpl implements TestRailParameters {
 
 	@Override
 	public String getPassword() {
-		return this.password;
+		return Secret.toString(this.password);
 	}
 
 	public void setPassword(final String password) {
-		this.password = password;
+		this.password = Secret.fromString(password);
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package io.jenkins.plugins.railflow.commons.http;
 
+import hudson.util.Secret;
+
 /**
  * Default implementation of {@link ProxySettings}
  * 
@@ -12,7 +14,7 @@ public class ProxySettingsImpl implements ProxySettings {
 	private String host;
 	private int port;
 	private String userName;
-	private String password;
+	private Secret password;
 
 	public ProxySettingsImpl(final String protocol, final String host, final int port) {
 		this(protocol, host, port, null, null);
@@ -23,7 +25,7 @@ public class ProxySettingsImpl implements ProxySettings {
 		this.host = host;
 		this.port = port;
 		this.userName = userName;
-		this.password = password;
+		this.password = Secret.fromString(password);
 	}
 
 	@Override
@@ -64,11 +66,10 @@ public class ProxySettingsImpl implements ProxySettings {
 
 	@Override
 	public String getPassword() {
-		return this.password;
+		return Secret.toString(this.password);
 	}
 
 	public void setPassword(final String password) {
-		this.password = password;
+		this.password = Secret.fromString(password);
 	}
-
 }

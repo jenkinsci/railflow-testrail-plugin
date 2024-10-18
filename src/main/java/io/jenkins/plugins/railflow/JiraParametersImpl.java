@@ -2,6 +2,8 @@ package io.jenkins.plugins.railflow;
 
 import java.util.Optional;
 
+import hudson.util.Secret;
+
 /**
  * Default implementation of {@link JiraParametersImpl}.
  *
@@ -12,8 +14,8 @@ public class JiraParametersImpl implements JiraParameters {
 
 	private String jiraUrl;
 	private String email;
-	private String token;
-	private String projectKey;
+	private Secret token;
+	private Secret projectKey;
 	private int timeout;
 	private String todoStatusName;
 	private String doneStatusName;
@@ -23,8 +25,8 @@ public class JiraParametersImpl implements JiraParameters {
 	public JiraParametersImpl(final String jiraUrl, final String email, final String token, final String projectKey) {
 		this.jiraUrl = jiraUrl;
 		this.email = email;
-		this.token = token;
-		this.projectKey = projectKey;
+		this.token = Secret.fromString(token);
+		this.projectKey = Secret.fromString(projectKey);
 	}
 
 	@Override
@@ -47,20 +49,20 @@ public class JiraParametersImpl implements JiraParameters {
 
 	@Override
 	public String getToken() {
-		return this.token;
+		return Secret.toString(this.token);
 	}
 
 	public void setToken(final String token) {
-		this.token = token;
+		this.token = Secret.fromString(token);
 	}
 
 	@Override
 	public String getProjectKey() {
-		return this.projectKey;
+		return Secret.toString(this.projectKey);
 	}
 
 	public void setProjectKey(final String projectKey) {
-		this.projectKey = projectKey;
+		this.projectKey = Secret.fromString(projectKey);
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import org.jenkinsci.remoting.RoleChecker;
 import hudson.FilePath;
 import hudson.model.TaskListener;
 import hudson.remoting.Callable;
+import hudson.util.Secret;
 import io.jenkins.plugins.railflow.JiraParameters;
 import io.jenkins.plugins.railflow.TestRailParameters;
 import io.jenkins.plugins.railflow.UploadParameters;
@@ -23,8 +24,10 @@ import io.jenkins.plugins.railflow.testrail.client.model.Run;
  * @author Sergey Oplavin
  */
 public class RailflowCallable implements Callable<List<String>, Exception>, Serializable {
+
 	private static final long serialVersionUID = 4875516836673710685L;
-	private final String licenseKeyOrContent;
+
+	private final Secret licenseKeyOrContent;
 	private final TestRailParameters testRailParameters;
 	private final UploadParameters uploadParameters;
 	private final String reportFilePattern;
@@ -37,7 +40,7 @@ public class RailflowCallable implements Callable<List<String>, Exception>, Seri
 	public RailflowCallable(final String licenseKeyOrContent, final TestRailParameters testRailParameters, final UploadParameters uploadParameters,
 			final String reportFilePattern, final JiraParameters jiraParameters, final TaskListener listener, final String runId, final FilePath workspace,
 			final boolean debugLogEnabled) {
-		this.licenseKeyOrContent = licenseKeyOrContent;
+		this.licenseKeyOrContent = Secret.fromString(licenseKeyOrContent);
 		this.testRailParameters = testRailParameters;
 		this.uploadParameters = uploadParameters;
 		this.reportFilePattern = reportFilePattern;
@@ -54,7 +57,7 @@ public class RailflowCallable implements Callable<List<String>, Exception>, Seri
 		RailflowJenkinsCli.enableDebugLogging(this.debugLogEnabled);
 		try (final RailflowLogger logger = new RailflowLogger(this.listener, this.runId, this.workspace, this.debugLogEnabled)) {
 			final ResultsUploader.UploadResult uploadResult = RailflowJenkinsCli
-					.uploadTestReport(this.licenseKeyOrContent, this.testRailParameters, this.uploadParameters,
+					.uploadTestReport(Secret.toString(this.licenseKeyOrContent), this.testRailParameters, this.uploadParameters,
 							new ReportFilesProviderImpl(this.reportFilePattern, this.workspace), this.jiraParameters);
 			if (uploadResult != null) {
 				final List<Run> runs = uploadResult.getRuns();
@@ -67,7 +70,7 @@ public class RailflowCallable implements Callable<List<String>, Exception>, Seri
 	}
 
 	@Override
+	@SuppressWarnings("lgtm[jenkins/callable-without-role-check]")
 	public void checkRoles(final RoleChecker checker) throws SecurityException {
-
 	}
 }
