@@ -9,7 +9,7 @@
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>railflow-testrail</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${revision}${changelist}</version>
     <packaging>hpi</packaging>
 
     <name>Railflow for TestRail</name>
@@ -29,6 +29,9 @@
     </licenses>
 
     <properties>
+        <revision>1.0</revision>
+        <changelist>-SNAPSHOT</changelist>
+        <gitHubRepo>jenkinsci/railflow-testrail-plugin</gitHubRepo>
         <maven.incremental.build>true</maven.incremental.build>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jenkins.version>2.440.3</jenkins.version>
@@ -67,9 +70,9 @@
     </build>
 
     <scm>
-        <url>https://github.com/jenkinsci/railflow-testrail-plugin.git</url>
-        <connection>scm:git:git@github.com:jenkinsci/railflow-testrail-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:jenkinsci/railflow-testrail-plugin.git</developerConnection>
+        <url>https://github.com/${gitHubRepo}.git</url>
+        <connection>scm:git:git@github.com:${gitHubRepo}.git</connection>
+        <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
         <tag>${scmTag}</tag>
     </scm>
 
