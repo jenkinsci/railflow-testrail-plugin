@@ -1,3 +1,5 @@
 /.idea/
 /target/
 /work/
+pom.xml.releaseBackup
+release.properties

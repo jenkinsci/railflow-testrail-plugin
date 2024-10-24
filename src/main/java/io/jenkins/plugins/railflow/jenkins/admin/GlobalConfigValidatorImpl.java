@@ -1,7 +1,5 @@
 package io.jenkins.plugins.railflow.jenkins.admin;
 
-import io.jenkins.plugins.railflow.jenkins.Messages;
-
 /**
  * Implementation of {@link GlobalConfigValidator} which checks required params
  * and throws an exception if anything if missing.
@@ -14,16 +12,16 @@ public enum GlobalConfigValidatorImpl implements GlobalConfigValidator {
 	@Override
 	public void validate(GlobalConfig globalConfig) {
 		if (globalConfig == null) {
-			throw new IllegalArgumentException(Messages.globalConfigurationIsNull());
+			throw new IllegalArgumentException(io.jenkins.plugins.railflow.jenkins.Messages.globalConfigurationIsNull());
 		}
 		if (globalConfig.getLicenseContent() == null) {
-			throw new IllegalArgumentException(Messages.licenseMissing());
+			throw new IllegalArgumentException(io.jenkins.plugins.railflow.jenkins.Messages.licenseMissing());
 		}
 		if (globalConfig.getTestRailServers() == null) {
-			throw new IllegalArgumentException(Messages.testRailServersListIsNull());
+			throw new IllegalArgumentException(io.jenkins.plugins.railflow.jenkins.Messages.testRailServersListIsNull());
 		}
 		if (globalConfig.getTestRailServers().isEmpty()) {
-			throw new IllegalArgumentException(Messages.testRailServersListIsEmpty());
+			throw new IllegalArgumentException(io.jenkins.plugins.railflow.jenkins.Messages.testRailServersListIsEmpty());
 		}
 	}
 }

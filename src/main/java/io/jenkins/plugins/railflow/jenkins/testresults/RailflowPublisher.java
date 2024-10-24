@@ -33,7 +33,6 @@ import io.jenkins.plugins.railflow.jenkins.util.PasswordEncrypter;
 import io.jenkins.plugins.railflow.jenkins.util.ProjectUtils;
 import io.jenkins.plugins.railflow.jenkins.util.RailflowUtils;
 import io.jenkins.plugins.railflow.testreport.model.ReportFormat;
-import io.jenkins.plugins.railflow.jenkins.Messages;
 
 import java.io.IOException;
 import java.util.List;
@@ -62,26 +61,26 @@ import org.kohsuke.stapler.StaplerRequest;
 public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 
 	private static final Map<ReportFormat, String> TEST_REPORT_FORMATS = ImmutableMap.<ReportFormat, String> builder()
-			.put(ReportFormat.ALLURE, Messages.reportFormatAllure())
-			.put(ReportFormat.CUCUMBER, Messages.reportFormatCucumber())
-			.put(ReportFormat.JUNIT, Messages.reportFormatJunit())
-			.put(ReportFormat.NUNIT, Messages.reportFormatNunit())
-			.put(ReportFormat.NUNIT_SPECFLOW, Messages.reportFormatNunitSpecflow())
-			.put(ReportFormat.PYTEST_RAILFLOW, Messages.reportFormatPytestRailflow())
-			.put(ReportFormat.ROBOT, Messages.reportFormatRobot())
-			.put(ReportFormat.TESTNG, Messages.reportFormatTestng())
-			.put(ReportFormat.TESTNG_STEPS, Messages.reportFormatTestngSteps())
-			.put(ReportFormat.TRX, Messages.reportFormatTrx())
-			.put(ReportFormat.XUNIT, Messages.reportFormatXunit())
-			.put(ReportFormat.PLAYWRIGHT, Messages.reportFormatPlaywright()).build();
+			.put(ReportFormat.ALLURE, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatAllure())
+			.put(ReportFormat.CUCUMBER, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatCucumber())
+			.put(ReportFormat.JUNIT, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatJunit())
+			.put(ReportFormat.NUNIT, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatNunit())
+			.put(ReportFormat.NUNIT_SPECFLOW, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatNunitSpecflow())
+			.put(ReportFormat.PYTEST_RAILFLOW, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatPytestRailflow())
+			.put(ReportFormat.ROBOT, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatRobot())
+			.put(ReportFormat.TESTNG, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatTestng())
+			.put(ReportFormat.TESTNG_STEPS, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatTestngSteps())
+			.put(ReportFormat.TRX, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatTrx())
+			.put(ReportFormat.XUNIT, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatXunit())
+			.put(ReportFormat.PLAYWRIGHT, io.jenkins.plugins.railflow.jenkins.Messages.reportFormatPlaywright()).build();
 	private static final Map<SearchMode, String> SEARCH_MODES = ImmutableMap.<SearchMode, String> builder()
-			.put(SearchMode.PATH, Messages.searchModePath())
-			.put(SearchMode.NAME, Messages.searchModeName()).build();
+			.put(SearchMode.PATH, io.jenkins.plugins.railflow.jenkins.Messages.searchModePath())
+			.put(SearchMode.NAME, io.jenkins.plugins.railflow.jenkins.Messages.searchModeName()).build();
 	private static final Map<UploadMode, String> UPLOAD_MODES = ImmutableMap.<UploadMode, String> builder()
-			.put(UploadMode.CREATE_NO_UPDATE, Messages.createNoUpdate())
-			.put(UploadMode.CREATE_UPDATE, Messages.createUpdate())
-			.put(UploadMode.NO_CREATE_UPDATE, Messages.noCreateUpdate())
-			.put(UploadMode.NO_CREATE_NO_UPDATE, Messages.noCreateNoUpdate()).build();
+			.put(UploadMode.CREATE_NO_UPDATE, io.jenkins.plugins.railflow.jenkins.Messages.createNoUpdate())
+			.put(UploadMode.CREATE_UPDATE, io.jenkins.plugins.railflow.jenkins.Messages.createUpdate())
+			.put(UploadMode.NO_CREATE_UPDATE, io.jenkins.plugins.railflow.jenkins.Messages.noCreateUpdate())
+			.put(UploadMode.NO_CREATE_NO_UPDATE, io.jenkins.plugins.railflow.jenkins.Messages.noCreateNoUpdate()).build();
 	private GlobalConfigFactory globalConfigFactory = GlobalConfigFactoryImpl.THE_INSTANCE;
 	private TestRailParametersFactory testRailParametersFactory = TestRailParametersFactoryImpl.THE_INSTANCE;
 	private UploadParametersFactory uploadParametersFactory = UploadParametersFactoryImpl.THE_INSTANCE;
@@ -118,10 +117,10 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 				+ "|  _ <| (_| || || ||  _|| || (_) |\\ V  V / \n"
 				+ "|_| \\_\\\\__,_||_||_||_|  |_| \\___/  \\_/\\_/  \n"
 				+ "                                           ");
-		listener.getLogger().println(Messages.pluginVersion() + ProjectUtils.getPluginVersion());
-		listener.getLogger().println(Messages.startUpload());
+		listener.getLogger().println(io.jenkins.plugins.railflow.jenkins.Messages.pluginVersion() + ProjectUtils.getPluginVersion());
+		listener.getLogger().println(io.jenkins.plugins.railflow.jenkins.Messages.startUpload());
 		if (!this.doUpdate(run, launcher, listener, workspace)) {
-			throw new AbortException(Messages.logFailIfUploadTrue());
+			throw new AbortException(io.jenkins.plugins.railflow.jenkins.Messages.logFailIfUploadTrue());
 		}
 	}
 
@@ -131,12 +130,12 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		final TestRailParameters testRailParameters = this.testRailParametersFactory.create(globalConfig, this.testRailServerName, this.overriddenUserName,
 				this.overriddenPassword);
 		if (this.jobConfigurations == null || this.jobConfigurations.isEmpty()) {
-			listener.getLogger().println(Messages.noUploadConfigs());
+			listener.getLogger().println(io.jenkins.plugins.railflow.jenkins.Messages.noUploadConfigs());
 			return true;
 		}
 		final VirtualChannel channel = launcher.getChannel();
 		if (channel == null) {
-			throw new AbortException(Messages.virtualChannelIsNull());
+			throw new AbortException(io.jenkins.plugins.railflow.jenkins.Messages.virtualChannelIsNull());
 		}
 
 		final String licenseContent = this.passwordEncrypter.decrypt(globalConfig.getLicenseContent());
@@ -156,13 +155,13 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 				collectExportEvent(globalConfig.isUploadStatistics() || globalConfig.isTrial(), t -> RailflowJenkinsCli.collectExportEvent(
 						ServerType.Jenkins, globalConfig.isOnlineActivation(), licenseContent, testRailParameters, finalUploadParameters, null));
 			} catch (final Exception e) {
-				listener.getLogger().println(Messages.uploadErrorMessage() + e.getMessage());
+				listener.getLogger().println(io.jenkins.plugins.railflow.jenkins.Messages.uploadErrorMessage() + e.getMessage());
 				e.printStackTrace(listener.getLogger());
 				if (this.failIfUploadFailed) {
-					listener.getLogger().println(Messages.logFailIfUploadTrue());
+					listener.getLogger().println(io.jenkins.plugins.railflow.jenkins.Messages.logFailIfUploadTrue());
 					success = false;
 				} else {
-					listener.getLogger().println(Messages.logFailIfUploadFalse());
+					listener.getLogger().println(io.jenkins.plugins.railflow.jenkins.Messages.logFailIfUploadFalse());
 				}
 
 				// If uploadParameters is null, it means the exception is thrown
@@ -295,7 +294,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		@Nonnull
 		@Override
 		public String getDisplayName() {
-			return Messages.postBuildDisplayName();
+			return io.jenkins.plugins.railflow.jenkins.Messages.postBuildDisplayName();
 		}
 
 		@Override
@@ -374,13 +373,13 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		public FormValidation doCheckTestCasePath(@QueryParameter final String testCasePath, @QueryParameter final ReportFormat testReportFormat) {
 			final String testPathTrimmed = Util.fixEmptyAndTrim(testCasePath);
 			if (StringUtils.isEmpty(testPathTrimmed)) {
-				return FormValidation.error(Messages.thisFieldIsRequired());
+				return FormValidation.error(io.jenkins.plugins.railflow.jenkins.Messages.thisFieldIsRequired());
 			}
 
 			if (ReportFormat.TRX == testReportFormat) {
 				final String[] testPathArray = testPathTrimmed.split(Pattern.quote("/"));
 				if (testPathArray.length < 2) {
-					return FormValidation.warning(Messages.sectionNameInTestPathIsRequiredInTrxReportFormat());
+					return FormValidation.warning(io.jenkins.plugins.railflow.jenkins.Messages.sectionNameInTestPathIsRequiredInTrxReportFormat());
 				}
 
 			}

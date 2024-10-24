@@ -9,7 +9,6 @@ import io.jenkins.plugins.railflow.TestRailParameters;
 import io.jenkins.plugins.railflow.jenkins.admin.GlobalConfig;
 import io.jenkins.plugins.railflow.jenkins.admin.TestRailServerConfig;
 import io.jenkins.plugins.railflow.jenkins.util.RailflowProxySettingsFactory;
-import io.jenkins.plugins.railflow.jenkins.Messages;
 import jenkins.model.Jenkins;
 
 /**
@@ -24,17 +23,17 @@ public enum TestRailParametersFactoryImpl implements TestRailParametersFactory {
 	public TestRailParameters create(final GlobalConfig globalConfig, final String testRailServerName, final String overriddenUserName,
 			final Secret overriddenPassword) {
 		if (testRailServerName == null) {
-			throw new NullPointerException(Messages.testRailServerNameIsNull());
+			throw new NullPointerException(io.jenkins.plugins.railflow.jenkins.Messages.testRailServerNameIsNull());
 		}
 		final List<TestRailServerConfig> testRailServers = globalConfig.getTestRailServers();
 		if (testRailServers == null) {
-			throw new NullPointerException(Messages.testRailServersListIsNull());
+			throw new NullPointerException(io.jenkins.plugins.railflow.jenkins.Messages.testRailServersListIsNull());
 		}
 		final TestRailServerConfig testRailServerConfig = testRailServers.stream().filter(config -> testRailServerName.equals(config.getName())).findFirst()
-				.orElseThrow(() -> new RuntimeException(Messages.testRailDoesNotExist(testRailServerName)));
+				.orElseThrow(() -> new RuntimeException(io.jenkins.plugins.railflow.jenkins.Messages.testRailDoesNotExist(testRailServerName)));
 		final String testRailUrl = testRailServerConfig.getTestRailUrl();
 		if (StringUtils.isEmpty(testRailUrl)) {
-			throw new NullPointerException(Messages.testRailUrlIsNull(testRailServerName));
+			throw new NullPointerException(io.jenkins.plugins.railflow.jenkins.Messages.testRailUrlIsNull(testRailServerName));
 		}
 		final String url = testRailServerConfig.getTestRailUrl();
 		String userName = testRailServerConfig.getTestRailUserName();
@@ -46,7 +45,7 @@ public enum TestRailParametersFactoryImpl implements TestRailParametersFactory {
 			password = overriddenPassword;
 		}
 		if (StringUtils.isEmpty(userName)) {
-			throw new RuntimeException(Messages.testRailCredentialsNotSet(testRailServerName));
+			throw new RuntimeException(io.jenkins.plugins.railflow.jenkins.Messages.testRailCredentialsNotSet(testRailServerName));
 		}
 
 		final TestRailParameters params = TestRailParameters

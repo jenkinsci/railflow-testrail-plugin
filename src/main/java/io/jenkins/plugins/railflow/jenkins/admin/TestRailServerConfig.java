@@ -14,7 +14,6 @@ import hudson.model.Descriptor;
 import hudson.util.FormValidation;
 import hudson.util.Secret;
 import io.jenkins.plugins.railflow.jenkins.util.RailflowUtils;
-import io.jenkins.plugins.railflow.jenkins.Messages;
 
 /**
  * Holds configuration for a single TestRail server.
@@ -79,12 +78,12 @@ public class TestRailServerConfig extends AbstractDescribableImpl<TestRailServer
 		public FormValidation doCheckTestRailUrl(@QueryParameter final String testRailUrl) {
 			final String preparedUrl = Util.fixEmptyAndTrim(testRailUrl);
 			if (preparedUrl == null) {
-				return FormValidation.error(Messages.testRailUrlIsRequired());
+				return FormValidation.error(io.jenkins.plugins.railflow.jenkins.Messages.testRailUrlIsRequired());
 			}
 			try {
 				new URL(testRailUrl);
 			} catch (final MalformedURLException e) {
-				return FormValidation.error(Messages.malformedTestRailUrl(e.getMessage()));
+				return FormValidation.error(io.jenkins.plugins.railflow.jenkins.Messages.malformedTestRailUrl(e.getMessage()));
 			}
 			return FormValidation.ok();
 		}

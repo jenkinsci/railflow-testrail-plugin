@@ -7,8 +7,7 @@ import io.jenkins.plugins.railflow.LicenseInfo;
 import io.jenkins.plugins.railflow.jenkins.cli.RailflowJenkinsCli;
 
 /**
- * Default implementation for {@link LicenseInfoProvider} which uses
- * {@link Railflow#getLicense(String, io.jenkins.plugins.railflow.commons.http.ProxySettings)}.
+ * Default implementation for {@link LicenseInfoProvider}.
  *
  * @author Sergey Oplavin
  */

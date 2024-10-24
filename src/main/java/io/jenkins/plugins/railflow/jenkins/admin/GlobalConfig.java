@@ -14,7 +14,6 @@ import io.jenkins.plugins.railflow.jenkins.util.PasswordEncrypter;
 import io.jenkins.plugins.railflow.jenkins.util.ProjectUtils;
 import io.jenkins.plugins.railflow.jenkins.util.RailflowLicenseInfoProvider;
 import io.jenkins.plugins.railflow.jenkins.util.RailflowProxySettingsFactory;
-import io.jenkins.plugins.railflow.jenkins.Messages;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -80,7 +79,7 @@ public class GlobalConfig extends GlobalConfiguration {
 	@Nonnull
 	@Override
 	public String getDisplayName() {
-		return Messages.pluginDisplayName();
+		return io.jenkins.plugins.railflow.jenkins.Messages.pluginDisplayName();
 	}
 
 	@POST
@@ -214,7 +213,7 @@ public class GlobalConfig extends GlobalConfiguration {
 			final Map<String, String> returnValues = new HashMap<>();
 			returnValues.put("expirationDate", expirationDate);
 			returnValues.put("licenseContent", new String(licenseInfo.getLicenseKey(), StandardCharsets.UTF_8));
-			returnValues.put("message", Messages.licenseActivatedSuccess());
+			returnValues.put("message", io.jenkins.plugins.railflow.jenkins.Messages.licenseActivatedSuccess());
 			returnValues.put("onlineActivation", String.valueOf(this.onlineActivation));
 			returnValues.put("trial", String.valueOf(this.trial));
 			return HttpResponses.okJSON(returnValues);

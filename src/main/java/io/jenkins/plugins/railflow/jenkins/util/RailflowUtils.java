@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import hudson.Util;
 import hudson.util.FormValidation;
 import io.jenkins.plugins.railflow.RunId;
-import io.jenkins.plugins.railflow.jenkins.Messages;
 
 /**
  * @author Sergey Oplavin
@@ -37,7 +36,7 @@ public final class RailflowUtils {
 	public static FormValidation validateRequiredField(final String fieldValue) {
 		final String preparedVal = Util.fixEmptyAndTrim(fieldValue);
 		if (preparedVal == null) {
-			return FormValidation.error(Messages.thisFieldIsRequired());
+			return FormValidation.error(io.jenkins.plugins.railflow.jenkins.Messages.thisFieldIsRequired());
 		}
 		return FormValidation.ok();
 	}
@@ -90,7 +89,7 @@ public final class RailflowUtils {
 	}
 
 	public static FormValidation validateMilestonePath(final String milestonePath) {
-		return isMilestonePathValid(milestonePath) ? FormValidation.ok() : FormValidation.error(Messages.milestonePathInvalid());
+		return isMilestonePathValid(milestonePath) ? FormValidation.ok() : FormValidation.error(io.jenkins.plugins.railflow.jenkins.Messages.milestonePathInvalid());
 	}
 
 	public static boolean isMilestonePathValid(final String milestonePath) {
