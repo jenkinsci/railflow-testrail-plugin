@@ -1,2 +1,0 @@
-_extends: .github
-tag-template: railflow-testrail-$NEXT_MINOR_VERSION
