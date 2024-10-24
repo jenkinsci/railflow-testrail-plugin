@@ -101,7 +101,7 @@ public final class RailflowUtils {
 		try {
 			RunId.create(runId);
 		} catch (final Exception e) {
-			return FormValidation.error(Messages.runIdInvalid());
+			return FormValidation.error(io.jenkins.plugins.railflow.jenkins.Messages.runIdInvalid());
 		}
 		return FormValidation.ok();
 	}
