@@ -67,8 +67,8 @@
 
     <scm>
         <url>https://github.com/jenkinsci/railflow-testrail.git</url>
-        <connection>scm:git:https://github.com/jenkinsci/railflow-testrail.git</connection>
-        <developerConnection>scm:git:https://github.com/jenkinsci/railflow-testrail.git</developerConnection>
+        <connection>scm:git:git@github.com:jenkinsci/railflow-testrail-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/railflow-testrail-plugin.git</developerConnection>
         <tag>${scmTag}</tag>
     </scm>
 
