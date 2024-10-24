@@ -8,7 +8,7 @@
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>railflow-testrail</artifactId>
-    <version>1.1</version>
+    <version>${revision}${changelist}</version>
     <packaging>hpi</packaging>
 
     <name>Railflow for TestRail</name>
@@ -28,7 +28,7 @@
     </licenses>
 
     <properties>
-        <revision>1.1</revision>
+        <revision>1.2</revision>
         <changelist>-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/railflow-testrail-plugin</gitHubRepo>
         <maven.incremental.build>true</maven.incremental.build>
@@ -72,7 +72,7 @@
         <url>https://github.com/${gitHubRepo}.git</url>
         <connection>scm:git:git@github.com:${gitHubRepo}.git</connection>
         <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
-        <tag>railflow-testrail-1.1</tag>
+        <tag>${scmTag}</tag>
     </scm>
 
     <repositories>
