@@ -30,6 +30,7 @@
     <properties>
         <changelist>999999-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/railflow-testrail-plugin</gitHubRepo>
+        <!-- <maven.incremental.build>true</maven.incremental.build> -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jenkins.version>2.440.3</jenkins.version>
     </properties>
@@ -84,7 +85,7 @@
         <url>https://github.com/${gitHubRepo}.git</url>
         <connection>scm:git:git@github.com:${gitHubRepo}.git</connection>
         <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
-        <tag>railflow-testrail-1.0.0</tag>
+        <tag>${scmTag}</tag>
     </scm>
 
     <repositories>
