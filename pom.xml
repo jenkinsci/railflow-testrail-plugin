@@ -8,7 +8,7 @@
     </parent>
     <groupId>io.jenkins.plugins</groupId>
     <artifactId>railflow-testrail</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>hpi</packaging>
 
     <name>Railflow for TestRail</name>
