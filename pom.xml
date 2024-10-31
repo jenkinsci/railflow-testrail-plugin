@@ -30,7 +30,7 @@
     <properties>
         <changelist>999999-SNAPSHOT</changelist>
         <gitHubRepo>jenkinsci/railflow-testrail-plugin</gitHubRepo>
-        <maven.incremental.build>true</maven.incremental.build>
+        <!-- <maven.incremental.build>true</maven.incremental.build> -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jenkins.version>2.440.3</jenkins.version>
     </properties>
@@ -59,6 +59,20 @@
     </dependencies>
 
     <build>
+        <plugins>
+            <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>3.1.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>2.1.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
