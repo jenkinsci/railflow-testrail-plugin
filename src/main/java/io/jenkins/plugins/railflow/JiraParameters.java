@@ -25,7 +25,10 @@ public interface JiraParameters extends Serializable {
 	 *            the project key.
 	 * @return builder.
 	 */
-	static JiraParameters.Builder builder(final String jiraUrl, final String email, final String token, final String projectKey) {
+	static JiraParameters.Builder builder(
+			final String jiraUrl, final String email,
+			final String token, final String projectKey) {
+
 		return new JiraParameters.Builder(jiraUrl, email, token, projectKey);
 	}
 
@@ -99,8 +102,11 @@ public interface JiraParameters extends Serializable {
 	class Builder {
 		private final JiraParametersImpl jiraParameters;
 
-		private Builder(final String jiraUrl, final String email, final String password, final String projectKey) {
-			this.jiraParameters = new JiraParametersImpl(jiraUrl, email, password, projectKey);
+		private Builder(final String jiraUrl, final String email,
+				final String password, final String projectKey) {
+
+			this.jiraParameters = new JiraParametersImpl(
+					jiraUrl, email, password, projectKey);
 		}
 
 		public JiraParameters.Builder timeout(final int timeout) {
