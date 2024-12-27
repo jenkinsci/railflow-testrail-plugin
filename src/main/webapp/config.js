@@ -1,4 +1,4 @@
-const descriptorUrl = "/jenkins/manage/descriptorByName/io.jenkins.plugins.railflow.jenkins.admin.GlobalConfig";
+const descriptorUrl = "/manage/descriptorByName/io.jenkins.plugins.railflow.jenkins.admin.GlobalConfig";
 
 function uploadLicense() {
     try {
