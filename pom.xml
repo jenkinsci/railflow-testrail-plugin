@@ -33,14 +33,16 @@
         <gitHubRepo>jenkinsci/railflow-testrail-plugin</gitHubRepo>
         <maven.incremental.build>true</maven.incremental.build>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jenkins.version>2.440.3</jenkins.version>
+        <!-- https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
+        <jenkins.baseline>2.440</jenkins.baseline>
+        <jenkins.version>${jenkins.baseline}.3</jenkins.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>io.jenkins.tools.bom</groupId>
-                <artifactId>bom-2.440.x</artifactId>
+                <artifactId>bom-${jenkins.baseline}.x</artifactId>
                 <version>3289.v3ff9637cd241</version>
                 <scope>import</scope>
                 <type>pom</type>
