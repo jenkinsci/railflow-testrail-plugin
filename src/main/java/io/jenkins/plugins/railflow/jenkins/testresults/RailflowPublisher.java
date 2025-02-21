@@ -50,7 +50,7 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 
 /**
  * Publisher for Railflow.
@@ -303,7 +303,7 @@ public class RailflowPublisher extends Recorder implements SimpleBuildStep {
 		}
 
 		@Override
-		public Publisher newInstance(@Nullable final StaplerRequest req, @Nonnull final JSONObject formData) {
+		public Publisher newInstance(@Nullable final StaplerRequest2 req, @Nonnull final JSONObject formData) {
 			if (req == null) {
 				throw new IllegalArgumentException("Stapler request is null");
 			}
