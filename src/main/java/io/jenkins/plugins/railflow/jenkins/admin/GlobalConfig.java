@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Nonnull;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import jenkins.model.GlobalConfiguration;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
@@ -37,8 +37,8 @@ import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.StaplerResponse;
+import org.kohsuke.stapler.StaplerRequest2;
+import org.kohsuke.stapler.StaplerResponse2;
 import org.kohsuke.stapler.verb.POST;
 
 /**
@@ -84,7 +84,7 @@ public class GlobalConfig extends GlobalConfiguration {
 
 	@POST
 	@Override
-	public boolean configure(final StaplerRequest req, final JSONObject json) throws FormException {
+	public boolean configure(final StaplerRequest2 req, final JSONObject json) throws FormException {
 		Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 		this.testRailServers = Collections.emptyList();
 		req.bindJSON(this, json);
@@ -97,7 +97,7 @@ public class GlobalConfig extends GlobalConfiguration {
 	}
 
 	@POST
-	public HttpResponse doUploadLicenseFile(final StaplerRequest req) throws ServletException, IOException {
+	public HttpResponse doUploadLicenseFile(final StaplerRequest2 req) throws ServletException, IOException {
 		Jenkins.get().checkPermission(Jenkins.ADMINISTER);
 		final FileItem licenseFile = req.getFileItem("licenseFile");
 		if (licenseFile == null) {
@@ -255,7 +255,7 @@ public class GlobalConfig extends GlobalConfiguration {
 		}
 
 		@Override
-		public void generateResponse(final StaplerRequest req, final StaplerResponse rsp, final Object node) throws IOException, ServletException {
+		public void generateResponse(final StaplerRequest2 req, final StaplerResponse2 rsp, final Object node) throws IOException, ServletException {
 			rsp.setStatus(STATUS_CODE);
 			rsp.setContentType(CONTENT_TYPE);
 			if (this.cause != null) {
