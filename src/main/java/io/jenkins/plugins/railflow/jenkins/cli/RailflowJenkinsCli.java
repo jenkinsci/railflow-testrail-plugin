@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -180,7 +181,8 @@ public class RailflowJenkinsCli {
     private static String exec(final String command, final List<String> args, final String resultKey)
         throws IOException {
         final String jar = "railflow-jenkins-cli-1.0.jar";
-        final File target = new File(jar);
+        final File tmpdir = new File(System.getProperty("java.io.tmpdir"));
+        final File target = new File(tmpdir, jar);
         if (!target.exists()) {
             final URL url = new URL("https://api.railflow.io/storage/v1/object/public/jenkins/" + jar);
             LOGGER.info("[RailflowJenkinsCLI] " + jar + " not found, downloading from " + url.toExternalForm());
@@ -190,17 +192,23 @@ public class RailflowJenkinsCli {
             connection.setReadTimeout(300_000);
             connection.setConnectTimeout(60_000);
             
-            final InputStream stream = connection.getInputStream();
-            Files.copy(stream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            stream.close();
-            LOGGER.info("[RailflowJenkinsCLI] " + jar + " downloaded");
+            try {
+                final InputStream stream = connection.getInputStream();
+                Files.copy(stream, target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                stream.close();
+                LOGGER.info("[RailflowJenkinsCLI] " + jar + " downloaded to " + target.toPath().toString());
+            } catch (AccessDeniedException e) {
+                LOGGER.severe("[RailflowJenkinsCLI] Write access denied to " + target.toPath().toString());
+                LOGGER.info("This version of Jenkins plugin is not compatible. Please download Railflow Jenkins plugin from the Railflow Jenkins downloads page.");
+                throw e;
+            }
         }
 
         final boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
         final List<String> params = new ArrayList<>();
         params.add(isWindows ? "java.exe" : "java");
         params.add("-jar");
-        params.add(jar);
+        params.add(target.toPath().toString());
         params.add(command);
         params.addAll(args);
 
